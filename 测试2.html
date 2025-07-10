@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AppleStyle Shop - 高中生也能搭建的亚马逊电商网站</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        /* 基础样式 */
+        :root {
+            --bg-color: #ffffff;
+            --primary-color: #0066cc;
+            --dark-gray: #1d1d1f;
+            --light-gray: #f5f5f7;
+            --border-gray: #d2d2d7;
+            --green-accent: #40a940;
+            --header-height: 64px;
+            --section-padding: 50px;
+            --card-radius: 18px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background-color: #fafafa;
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+        
+        /* 顶部导航 */
+        header {
+            background-color: rgba(255, 255, 255, 0.92);
+            backdrop-filter: saturate(180%) blur(20px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark-gray);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin-left: 40px;
+        }
+        
+        .nav-link {
+            margin: 0 18px;
+            font-size: 14px;
+            color: var(--dark-gray);
+            opacity: 0.8;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-link:hover {
+            opacity: 1;
+        }
+        
+        .search-container {
+            display: flex;
+            margin-left: auto;
+            width: 280px;
+            height: 36px;
+        }
+        
+        .search-input {
+            flex: 1;
+            border: 1px solid var(--border-gray);
+            border-radius: 10px 0 0 10px;
+            padding: 0 15px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .search-input:focus {
+            border-color: var(--primary-color);
+        }
+        
+        .search-btn {
+            width: 44px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 10px 10px 0;
+            cursor: pointer;
+        }
+        
+        .cart-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            border: none;
+            cursor: pointer;
+            margin-left: 20px;
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 11px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 主要内容区域 */
+        main {
+            margin-top: var(--header-height);
+        }
+        
+        .hero-section {
+            height: calc(100vh - var(--header-height));
+            min-height: 600px;
+            background: linear-gradient(135deg, #0066cc, #004999);
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero-title {
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+        
+        .hero-subtitle {
+            font-size: 22px;
+            font-weight: 400;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 500px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: white;
+            color: var(--dark-gray);
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            color: white;
+            margin-left: 15px;
+        }
+        
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .btn .icon {
+            margin-left: 8px;
+        }
+        
+        /* 部署指南区 */
+        .guide-section {
+            background-color: var(--light-gray);
+            padding: var(--section-padding) 5%;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto 50px;
+            color: #666;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .step-card {
+            background: white;
+            border-radius: var(--card-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            width: 300px;
+            transition: transform 0.4s;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 auto 20px;
+        }
+        
+        .step-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .step-description {
+            color: #666;
+        }
+        
+        /* 功能展示区 */
+        .features-section {
+            padding: var(--section-padding) 5%;
+            background-color: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 50px auto 0;
+        }
+        
+        .feature {
+            background: var(--light-gray);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .feature-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .feature-info {
+            padding: 25px;
+        }
+        
+        .feature-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-description {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        /* 生成网站区 */
+        .generate-section {
+            background: linear-gradient(45deg, #0066cc, #004999);
+            color: white;
+            padding: var(--section-padding) 5%;
+            text-align: center;
+        }
+        
+        .url-box {
+            display: flex;
+            max-width: 800px;
+            margin: 50px auto;
+        }
+        
+        .url-input {
+            flex: 1;
+            height: 60px;
+            border: none;
+            padding: 0 20px;
+            font-size: 18px;
+            border-radius: 12px 0 0 12px;
+        }
+        
+        .copy-btn {
+            width: 120px;
+            height: 60px;
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 0 12px 12px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: #f0f0f0;
+        }
+        
+        .qrcode {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        .qrcode-placeholder {
+            width: 180px;
+            height: 180px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: var(--dark-gray);
+            color: white;
+            padding: 40px 5%;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 15px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #333;
+            color: white;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        
+        .social-icon:hover {
+            background: var(--primary-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 14px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 900px) {
+            .hero-title {
+                font-size: 40px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .search-container {
+                margin-left: auto;
+                width: 200px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+                margin: 0;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+            }
+            
+            .search-container {
+                display: none;
+            }
+            
+            .url-box {
+                flex-direction: column;
+            }
+            
+            .url-input {
+                border-radius: 12px 12px 0 0;
+            }
+            
+            .copy-btn {
+                width: 100%;
+                height: 50px;
+                border-radius: 0 0 12px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header>
+        <a href="#" class="logo">
+            <i class="fab fa-apple"></i> AppleStyle Shop
+        </a>
+        
+        <ul class="nav-links">
+            <li><a href="#" class="nav-link">首页</a></li>
+            <li><a href="#" class="nav-link">产品</a></li>
+            <li><a href="#" class="nav-link">优惠</a></li>
+            <li><a href="#" class="nav-link">亚马逊集成</a></li>
+            <li><a href="#" class="nav-link">帮助指南</a></li>
+        </ul>
+        
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="搜索产品...">
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+        
+        <button class="cart-btn">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">3</span>
+        </button>
+    </header>
+
+    <!-- 首页横幅区 -->
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">轻松搭建高中生专属电商网站</h1>
+                <p class="hero-subtitle">使用苹果电脑设计精美亚马逊商城，无需编程经验，免费快速创建你的网上商店</p>
+                <div class="btn-container">
+                    <button class="btn btn-primary">立即开始免费搭建 <i class="fas fa-arrow-right icon"></i></button>
+                    <button class="btn btn-outline">了解更多 <i class="fas fa-info-circle icon"></i></button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 部署指南区 -->
+        <section class="guide-section">
+            <h2 class="section-title">四步生成你的网站</h2>
+            <p class="section-subtitle">按照下面简单步骤，高中生也能在几分钟内创建一个功能齐全的电商网站</p>
+            
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">下载代码</h3>
+                    <p class="step-description">复制此页面HTML代码，保存为index.html文件</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">创建GitHub账户</h3>
+                    <p class="step-description">前往github.com注册免费账户</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">创建新存储库</h3>
+                    <p class="step-description">新建一个仓库并上传HTML文件</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">启用GitHub Pages</h3>
+                    <p class="step-description">在仓库设置中快速启用并生成你的网站网址</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 功能展示区 -->
+        <section class="features-section">
+            <h2 class="section-title" style="text-align: center">专为高中生设计的电商平台</h2>
+            <p class="section-subtitle" style="text-align: center">集成亚马逊产品展示功能，无需管理库存</p>
+            
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-image" style="background-image: url('https://images.unsplash.com/photo-1550009158-9ebf69173e03?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80');"></div>
+                    <div class="feature-info">
+                        <h3 class="feature-title">现代苹果风格设计</h3>
+                        <p class="feature-description">优雅简洁的界面，符合苹果设计美学，给客户专业的购物体验</p>
+                        <button class="btn btn-outline" style="border-color: var(--primary-color); color: var(--primary-color);">了解详情</button>
+                    </div>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-image" style="background-image: url('https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80');"></div>
+                    <div class="feature-info">
+                        <h3 class="feature-title">亚马逊商品展示</h3>
+                        <p class="feature-description">无缝集成亚马逊产品API，展示真实商品信息</p>
+                        <button class="btn btn-outline" style="border-color: var(--primary-color); color: var(--primary-color);">了解详情</button>
+                    </div>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-image" style="background-image: url('https://images.unsplash.com/photo-1550009158-9ebf69173e03?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80');"></div>
+                    <div class="feature-info">
+                        <h3 class="feature-title">免费托管与自定义域名</h3>
+                        <p class="feature-description">通过GitHub Pages免费托管，支持自定义域名个性化你的网站</p>
+                        <button class="btn btn-outline" style="border-color: var(--primary-color); color: var(--primary-color);">了解详情</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 网址生成区 -->
+        <section class="generate-section">
+            <h2 class="section-title">生成你的专属网址</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.9); margin-bottom: 0;">按照上述步骤操作后，你的网站网址将在下方显示</p>
+            
+            <div class="url-box">
+                <input type="text" class="url-input" id="website-url" value="https://yourusername.github.io/your-repo" readonly>
+                <button class="copy-btn" onclick="copyUrl()">复制网址</button>
+            </div>
+            
+            <p style="margin-bottom: 10px; opacity: 0.9;">扫描二维码查看移动端效果</p>
+            <div class="qrcode">
+                <div class="qrcode-placeholder">
+                    <i class="fas fa-qrcode" style="font-size: 50px; color: #999;"></i>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 底部信息/页脚 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>AppleStyle Shop</h3>
+                <p style="opacity: 0.7; margin-bottom: 15px;">高中生也能轻松创建的亚马逊电商平台</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>快速链接</h3>
+                <ul class="footer-links">
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">产品展示</a></li>
+                    <li><a href="#">亚马逊API集成</a></li>
+                    <li><a href="#">部署指南</a></li>
+                    <li><a href="#">常见问题解答</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>帮助与支持</h3>
+                <ul class="footer-links">
+                    <li><a href="#">高中生文档</a></li>
+                    <li><a href="#">视频教程</a></li>
+                    <li><a href="#">社区论坛</a></li>
+                    <li><a href="#">联系支持</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>联系信息</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-envelope"></i> support@applestyle-shop.com</li>
+                    <li><i class="fab fa-github"></i> github.com/applestyle-shop</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 苹果风格电商实验室</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2023 AppleStyle Shop. 专为高中生设计的亚马逊电商平台 | 此网站仅用于教育目的</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript功能 -->
+    <script>
+        // 复制网址功能
+        function copyUrl() {
+            const urlInput = document.getElementById('website-url');
+            urlInput.select();
+            document.execCommand('copy');
+            
+            // 显示复制成功反馈
+            const originalText = document.querySelector('.copy-btn').textContent;
+            document.querySelector('.copy-btn').textContent = '网址已复制!';
+            
+            setTimeout(() => {
+                document.querySelector('.copy-btn').textContent = originalText;
+            }, 1500);
+        }
+        
+        // 初始化购物车数量
+        document.addEventListener('DOMContentLoaded', () => {
+            // 模拟加载效果
+            const steps = document.querySelectorAll('.step-card');
+            steps.forEach((step, index) => {
+                setTimeout(() => {
+                    step.style.opacity = "0";
+                    step.style.transform = "translateY(20px)";
+                    step.style.transition = "all 0.6s ease";
+                    
+                    setTimeout(() => {
+                        step.style.opacity = "1";
+                        step.style.transform = "translateY(0)";
+                    }, 100);
+                }, index * 150);
+            });
+            
+            // 为按钮添加点击效果
+            document.querySelectorAll('.btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.classList.add('active');
+                    setTimeout(() => {
+                        this.classList.remove('active');
+                    }, 200);
+                    
+                    alert("功能展示：在实际网站中，这里会引导你到下一部分");
+                });
+            });
+        });
+    </script>
+</body>
+</html>
